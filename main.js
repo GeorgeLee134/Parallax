@@ -1,16 +1,24 @@
 
-const amount = 10
+var amount = 5, size = 100, step = 10, parallax = 10, imageUrl = 'cat.png'
 
 document.addEventListener("DOMContentLoaded", function () {
   window.mWidth = document.body.clientWidth / 2
   window.mHeight = document.body.clientHeight / 2
-  var cat = document.getElementById('cat')
-  cat.style.backgroundImage = fillArray('url(cat.png)', amount).join(',')
-  cat.style.backgroundSize = generateSize(100, 10, amount).join(',')
+  var image = document.getElementById('image')
+  var params = getQueryParams(window.location.search)
+
+  amount = params.amount ? params.amount : amount
+  size = params.size ? params.size : size
+  step = params.step ? params.step : step
+  parallax = params.parallax ? params.parallax : parallax
+  imageUrl = params.imageUrl ? params.imageUrl : imageUrl
 
 
 
-  console.log(getQueryParams(window.location.search))
+  image.style.backgroundImage = fillArray(`url(${imageUrl})`, amount).join(',')
+  image.style.backgroundSize = generateSize(size, step, amount).join(',')
+
+
 
 
 });
@@ -26,7 +34,7 @@ document.addEventListener("mousemove", function (e) {
   let y = e.pageY
   let gx = false, gy = false
 
-  var cat = document.getElementById('cat')
+  var image = document.getElementById('image')
 
   if (x >= mWidth) {
     gx = true
@@ -39,11 +47,11 @@ document.addEventListener("mousemove", function (e) {
   for (let i = 1; i < amount + 1; i++) {
     css.push(generatePosition(i, x, y, gx, gy))
   }
-  cat.style.backgroundPosition = css.join(',')
+  image.style.backgroundPosition = css.join(',')
 });
 
 function generatePosition (i, x, y, gx, gy) {
-  var level = i / 10
+  var level = i / parallax
   return `${gx ? x - ((x - mWidth) * level) : x + ((mWidth - x) * level)}px
           ${gy ? y - ((y - mHeight) * level) : y + ((mHeight - y) * level)}px`
 }
