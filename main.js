@@ -35,7 +35,7 @@ document.addEventListener("mousemove", function (e) {
 });
 
 function deviceOrientationHandler (e) {
-  var x = e.gamma * 3, y = e.beta * 3
+  var x = e.gamma * 3 + mWidth, y = e.beta * 3 + mHeight
 
   handleMove(x, y)
 }
