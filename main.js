@@ -32,7 +32,7 @@ document.addEventListener("mousemove", function (e) {
 });
 
 function deviceOrientationHandler (e) {
-  console.log(e)
+  handleMove(e.gamma, e.beta)
 }
 
 function handleMove (x, y) {
