@@ -1,4 +1,4 @@
-# Cat Parallax
+# Parallax
 
 My reasons for doing this? Why not, looks pretty cool. Not too sure if this thing is _actually_ the parallax effect, but it's similar to me.
 
