@@ -2,11 +2,6 @@
 var amount = 5, size = 100, step = 10, parallax = 10, imageUrl = 'cat.png'
 
 document.addEventListener("DOMContentLoaded", function () {
-
-  if (window.DeviceOrientationEvent) {
-    window.addEventListener('deviceorientation', deviceOrientationHandler, false);
-  }
-
   window.mWidth = document.body.clientWidth / 2
   window.mHeight = document.body.clientHeight / 2
 
@@ -22,7 +17,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
   image.style.backgroundImage = fillArray(`url(${imageUrl})`, amount).join(',')
   image.style.backgroundSize = generateSize(size, step, amount).join(',')
-  handleMove(0, 0)
+
+  if (window.DeviceOrientationEvent) {
+    window.addEventListener('deviceorientation', deviceOrientationHandler, false);
+    handleMove(mWidth, mHeight)
+  } else {
+    handleMove(0, 0)
+  }
 });
 
 window.addEventListener("resize", function () {
