@@ -1,14 +1,16 @@
 
 var amount = 5, size = 100, step = 10, parallax = 10, imageUrl = 'cat.png'
 
-if (window.DeviceOrientationEvent) {
-  window.addEventListener('deviceorientation', deviceOrientationHandler, false);
-  console.log("supported")
-}
-
 document.addEventListener("DOMContentLoaded", function () {
+
+  if (window.DeviceOrientationEvent) {
+    window.addEventListener('deviceorientation', deviceOrientationHandler, false);
+  }
+
   window.mWidth = document.body.clientWidth / 2
   window.mHeight = document.body.clientHeight / 2
+
+
   var image = document.getElementById('image')
   var params = getQueryParams(window.location.search)
 
@@ -20,6 +22,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   image.style.backgroundImage = fillArray(`url(${imageUrl})`, amount).join(',')
   image.style.backgroundSize = generateSize(size, step, amount).join(',')
+  handleMove(0, 0)
 });
 
 window.addEventListener("resize", function () {
@@ -32,7 +35,9 @@ document.addEventListener("mousemove", function (e) {
 });
 
 function deviceOrientationHandler (e) {
-  handleMove(e.gamma, e.beta)
+  var x = e.gamma * 3, y = e.beta * 3
+
+  handleMove(x, y)
 }
 
 function handleMove (x, y) {
