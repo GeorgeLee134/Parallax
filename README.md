@@ -4,7 +4,7 @@ My reasons for doing this? Why not, looks pretty cool. Not too sure if this thin
 
 [**DEMO**](https://georgelee134.github.io/Parallax/)
 
-# Customizable options
+# Customizable **options**
 
 You can pass options to the page with URL parameters (**Note**: They **are** case-sensitive)
 

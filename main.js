@@ -1,6 +1,11 @@
 
 var amount = 5, size = 100, step = 10, parallax = 10, imageUrl = 'cat.png'
 
+if (window.DeviceOrientationEvent) {
+  window.addEventListener('deviceorientation', deviceOrientationHandler, false);
+  console.log("supported")
+}
+
 document.addEventListener("DOMContentLoaded", function () {
   window.mWidth = document.body.clientWidth / 2
   window.mHeight = document.body.clientHeight / 2
@@ -13,14 +18,8 @@ document.addEventListener("DOMContentLoaded", function () {
   parallax = params.parallax ? params.parallax : parallax
   imageUrl = params.imageUrl ? params.imageUrl : imageUrl
 
-
-
   image.style.backgroundImage = fillArray(`url(${imageUrl})`, amount).join(',')
   image.style.backgroundSize = generateSize(size, step, amount).join(',')
-
-
-
-
 });
 
 window.addEventListener("resize", function () {
@@ -28,10 +27,15 @@ window.addEventListener("resize", function () {
   window.mHeight = document.body.clientHeight / 2
 })
 
-
 document.addEventListener("mousemove", function (e) {
-  let x = e.pageX
-  let y = e.pageY
+  handleMove(e.pageX, e.pageY)
+});
+
+function deviceOrientationHandler (e) {
+  console.log(e)
+}
+
+function handleMove (x, y) {
   let gx = false, gy = false
 
   var image = document.getElementById('image')
@@ -48,7 +52,7 @@ document.addEventListener("mousemove", function (e) {
     css.push(generatePosition(i, x, y, gx, gy))
   }
   image.style.backgroundPosition = css.join(',')
-});
+}
 
 function generatePosition (i, x, y, gx, gy) {
   var level = i / parallax
