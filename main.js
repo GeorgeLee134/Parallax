@@ -9,10 +9,10 @@ document.addEventListener("DOMContentLoaded", function () {
   var image = document.getElementById('image')
   var params = getQueryParams(window.location.search)
 
-  amount = params.amount ? params.amount : amount
-  size = params.size ? params.size : size
-  step = params.step ? params.step : step
-  parallax = params.parallax ? params.parallax : parallax
+  amount = params.amount ? Number(params.amount) : amount
+  size = params.size ? Number(params.size) : size
+  step = params.step ? Number(params.step) : step
+  parallax = params.parallax ? Number(params.parallax) : parallax
   imageUrl = params.imageUrl ? params.imageUrl : imageUrl
 
   image.style.backgroundImage = fillArray(`url(${imageUrl})`, amount).join(',')
