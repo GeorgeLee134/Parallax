@@ -1,4 +1,4 @@
-
+'use strict';
 var amount = 5, size = 100, step = 10, parallax = 10, imageUrl = 'cat.png'
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -18,8 +18,25 @@ document.addEventListener("DOMContentLoaded", function () {
   image.style.backgroundImage = fillArray(`url(${imageUrl})`, amount).join(',')
   image.style.backgroundSize = generateSize(size, step, amount).join(',')
 
+
+
+
   if (window.DeviceOrientationEvent) {
-    window.addEventListener('deviceorientation', deviceOrientationHandler, false);
+    if (typeof DeviceMotionEvent.requestPermission === 'function') {
+      // iOS 13+
+      DeviceOrientationEvent.requestPermission()
+        .then(response => {
+          if (response == 'granted') {
+            window.addEventListener('deviceorientation', deviceOrientationHandler, false);
+          }
+        })
+        .catch(console.error)
+    } else {
+      // non iOS 13+
+      window.addEventListener('deviceorientation', deviceOrientationHandler, false);
+    }
+
+
     handleMove(mWidth, mHeight)
   } else {
     handleMove(0, 0)
